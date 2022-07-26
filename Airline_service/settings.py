@@ -28,7 +28,6 @@ SECRET_KEY = '%$vw9lar5jgqg!49w&!mkc(@!eniy@(+sk1*whx7ty@e6hx)@0'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'airline-service.herokuapp.com'
 ]
 
 
