@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+{% if user.is_authenticated %}
+{% for flight in object_list %}
+{% if user.id == flight.user.id %}
+<div style="height: 90vh;">
+<h1 class="text-center my-4">Your Flight</h1>
+<table class="table ">
+    <thead>
+      <tr>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Airline Name</th>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Price</th>
+        <th scope="col">Booked Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{flight.user.username}}</th>
+        <td>{{flight.airlines.name}}</td>
+        <td>{{flight.airlines.source}}</td>
+        <td>{{flight.airlines.destination}}</td>
+        <td>{{flight.airlines.price}}</td>
+        <td>{{flight.created_at}}</td>
+        <td><button class="btn btn-sm btn-outline-primary">cancel flight</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}

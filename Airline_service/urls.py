@@ -21,10 +21,12 @@ admin.site.site_header = "Airline service admin "
 admin.site.site_title = "Airline service Admin Portal"
 admin.site.index_title = "Welcome to Airline service Portal"
 #from Main import views as mg
-from Main.views import index,available,davailable,home
+from Main.views import index,available,davailable,home,CreateAirlinesView,AirlinesView,searchAirlines,airline_detail,UserBookFlight
 from Authentication.views import signup,login,logout
 from Find_safe.views import safe,result
 from Price_prediction.views import price,result1
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,4 +42,13 @@ urlpatterns = [
     path('result/',result, name="result"),
     path('price/', price ,name="price"),
     path('result1/', result1, name="result1"),
+    path('airlines/',CreateAirlinesView.as_view(),name="airlines"),
+    path('airlineslist',AirlinesView.as_view(),name="airlinesList"),
+    path('airlinedetail/<int:pk>',airline_detail,name="airline_detail"),
+    path('searchairline',searchAirlines,name="searchairline"),
+    path('userflight',UserBookFlight.as_view(),name="userflight"),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

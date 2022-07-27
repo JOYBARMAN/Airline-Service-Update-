@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block body %}
 
+{% if user.is_authenticated %}
+
 <div id="booking" class="section">
   <div class="section-center">
     <div class="container">
@@ -15,7 +17,7 @@
         </div>
         <div class="col-md-7 col-md-offset-1">
           <div class="booking-form">
-            <form method="POST" action="\ind/">
+            <form method="POST" action="{% url 'searchairline' %}">
               {% csrf_token %}
               <div class="row">
                 <div class="col-md-12">
@@ -55,7 +57,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <span class="form-label">Departing</span>
                     <input
@@ -66,7 +68,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
+                {% comment %} <div class="col-md-6">
                   <div class="form-group">
                     <span class="form-label">Returning</span>
                     <input
@@ -76,9 +78,9 @@
                       required
                     />
                   </div>
-                </div>
+                </div> {% endcomment %}
               </div>
-              <div class="row">
+              {% comment %} <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <span class="form-label">Adults (18+)</span>
@@ -112,7 +114,7 @@
                     <span class="select-arrow"></span>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
               <div class="form-btn">
                 <button class="submit-btn" type="submit">Show flights</button>
               </div>
@@ -123,5 +125,10 @@
     </div>
   </div>
 </div>
+{% else %}
+<div style="height : 90vh">
+<h1 class="text-center my-2 text-danger">You Are Not A Authenticate User</h1>
+</div>
+{% endif %}
 
 {% endblock %}

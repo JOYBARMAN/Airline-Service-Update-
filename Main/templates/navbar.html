@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-lg" style ="background-color: white">
-  <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">Airlines Service</a>
+<nav class="navbar navbar-expand-lg" style="background-color: white">
+  <a class="navbar-brand font-weight-bold" href="{% url 'home' %}"
+    >Airlines Service</a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -13,19 +15,36 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-    {% if user.is_authenticated %}
-    <li class="nav-item ">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'index' %}">Home</a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'safe' %}">Find safe journey</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'price' %}">Predict price</a>
       </li>
       {% if user.is_superuser %}
-      <li class="nav-item">
-        <a class="nav-link" href="">Add Airlines</a>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Airlines
+        </a>
+        <div
+          class="dropdown-menu"
+          id="navbarDropdown"
+          aria-labelledby="navbarDropdown"
+        >
+          <a class="dropdown-item" href="{% url 'airlines' %}">Add Airlines</a>
+          <a class="dropdown-item" href="{% url 'airlinesList' %}">Airlines</a>
+        </div>
       </li>
       {% endif %}
       <li class="nav-item">
@@ -42,8 +61,13 @@
         >
           {{ user.username }}
         </a>
-        <div class="dropdown-menu" id="navbarDropdown" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/logout">Logout</a>
+        <div
+          class="dropdown-menu"
+          id="navbarDropdown"
+          aria-labelledby="navbarDropdown"
+        >
+          <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+          <a class="dropdown-item" href="{% url 'userflight'%}">My Flight</a>
         </div>
       </li>
       {% else %}

@@ -12,10 +12,10 @@ class Flight(models.Model):
     ffrom = models.CharField(max_length=122)
     fto = models.CharField(max_length=122)
     date1 = models.DateField()
-    date2 = models.DateField()
-    adult = models.CharField(max_length=122)
-    child = models.CharField(max_length=122)
-    fclass = models.CharField(max_length=122)
+    date2 = models.DateField(null=True,blank=True)
+    adult = models.CharField(max_length=122,null=True,blank=True)
+    child = models.CharField(max_length=122,null=True,blank=True)
+    fclass = models.CharField(max_length=122,null=True,blank=True)
 
     def __str__(self):
         return self.ffrom +" to "+ str(self.fto) + " | " + str(self.date1)
@@ -47,10 +47,9 @@ class Airlines(models.Model):
 
 class Flight_Book (models.Model):
     user = models .ForeignKey(User,on_delete=models.CASCADE)
-    flight = models.ForeignKey(Flight,on_delete=models.CASCADE)
     airlines =models.ForeignKey(Airlines,on_delete=models.CASCADE)
     created_at =models.DateField(auto_now_add=True)
 
 
     def __str__(self):
-        return  self.user.username + " | " + str(self.flight.ffrom) + " to " + str(self.flight.fto) + " |  " + str(self.airlines)
+        return  self.user.username + " | " + str(self.airlines.source) + " to " + str(self.airlines.destination) + " |  " + str(self.airlines.name)

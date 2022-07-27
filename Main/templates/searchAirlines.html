@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+<div class="container" style="height: 90vh">
+    <h1 class="text-center my-4">Search Result</h1>
+    {% if airline %}
+    <div class="row">
+        {% for airline in airline %}
+        <div class="col-lg-3 m-2">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{airline.image.url}}" alt="Card image cap" height="220px">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{airline.name}}</h5>
+                    <p class="card-text">{{airline.description|slice:":50"}}</p>
+                    <p class="text-danger my-2">{{airline.source}} To {{airline.destination}}</p>
+                    <a href="{% url 'airline_detail' airline.pk %}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h1 class="text-center my-4">There Is No Available Flight</h1>
+    {% endif %}
+</div>
+{% endblock %}
