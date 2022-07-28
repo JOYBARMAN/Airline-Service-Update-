@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class="container my-5">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Add Flight</button>
+      </form>
+</div>
+{% else %}
+<h1 class="text-center my-5">You Are Not A Authenticate User !!!</h1>\
+{% endif %}
+{% endblock body %}

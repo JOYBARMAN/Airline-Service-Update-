@@ -1,0 +1,18 @@
+{%extends 'base.html' %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class="container my-5" style="height: 90vh ;">
+<form method="POST">
+    <!-- Security token by Django -->
+    {% csrf_token %}
+    <h2 >
+    Are you sure to cancel your fligth ?
+    </h2>
+    <input class="btn btn-outline-primary my-3" type="submit" value="Yes" />
+    <a class="btn btn-outline-success my-3 mx-2" href="{% url 'userflight' %}">Cancel </a>
+</form>
+</div>
+{% else %}
+	<h3>You Are Not A Authenticate User !!!</h3>
+{% endif%}
+{% endblock%}

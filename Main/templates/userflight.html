@@ -1,8 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block body %}
 {% if user.is_authenticated %}
-{% for flight in object_list %}
-{% if user.id == flight.user.id %}
-<div style="height: 90vh;">
+
+<div class="container-fluid" style="height: 90vh;">
+    {% if messages %} {% for message in messages %}
+    <div class="p-1 bg-success text-white">{{message}}</div>
+    {% endfor %}
+    {% endif %}
 <h1 class="text-center my-4">Your Flight</h1>
 <table class="table ">
     <thead>
@@ -16,6 +19,8 @@
         <th scope="col">Action</th>
       </tr>
     </thead>
+    {% for flight in object_list %}
+    {% if user.id == flight.user.id %}
     <tbody>
       <tr>
         <th scope="row">{{flight.user.username}}</th>
@@ -24,12 +29,12 @@
         <td>{{flight.airlines.destination}}</td>
         <td>{{flight.airlines.price}}</td>
         <td>{{flight.created_at}}</td>
-        <td><button class="btn btn-sm btn-outline-primary">cancel flight</button></td>
+        <td><a href="{% url 'cancel-flight' flight.id %}" class="btn btn-sm btn-outline-primary">cancel flight</a></td>
       </tr>
     </tbody>
+    {% endif %}
+    {% endfor %}
   </table>
 </div>
-{% endif %}
-{% endfor %}
 {% endif %}
 {% endblock %}

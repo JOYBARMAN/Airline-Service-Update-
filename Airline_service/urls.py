@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from unicodedata import name
 from django.contrib import admin
 from django.urls import path,include
 from Feedback import urls
@@ -21,7 +22,7 @@ admin.site.site_header = "Airline service admin "
 admin.site.site_title = "Airline service Admin Portal"
 admin.site.index_title = "Welcome to Airline service Portal"
 #from Main import views as mg
-from Main.views import index,available,davailable,home,CreateAirlinesView,AirlinesView,searchAirlines,airline_detail,UserBookFlight
+from Main.views import index,home,CreateAirlinesView,AirlinesView,searchAirlines,airline_detail,UserBookFlight,flight_cancel_view,book_flight
 from Authentication.views import signup,login,logout
 from Find_safe.views import safe,result
 from Price_prediction.views import price,result1
@@ -32,8 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ind/',index,name="index"),
     path('',home,name="home"),
-    path('ava/',available),
-    path('dava/',davailable),
     path('reg/',signup,name="signup"),
     path('login/',login, name="login"),
     path('logout/',logout,name="logout"),
@@ -47,6 +46,8 @@ urlpatterns = [
     path('airlinedetail/<int:pk>',airline_detail,name="airline_detail"),
     path('searchairline',searchAirlines,name="searchairline"),
     path('userflight',UserBookFlight.as_view(),name="userflight"),
+    path('userflight/<id>/cancel', flight_cancel_view, name="cancel-flight"),
+    path('bookflight',book_flight,name="bookflight")
 ]
 
 if settings.DEBUG:
