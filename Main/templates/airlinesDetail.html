@@ -7,7 +7,7 @@
     <div>
         <img src="{{airline.image.url}}" alt="" height="100%" width="100%">
     </div>
-    <h2 class="my-2 font-weight-bold">Airline Name : {{airline.name}} {{airline.id}}
+    <h2 class="my-2 font-weight-bold">Airline Name : {{airline.name}}
         <h5 class="my-2 font-weight-bold">Source : {{airline.source}}</h5>
         <h5 class="my-2 font-weight-bold">Destination : {{airline.destination}}</h5>
         <h5 class="my-2 font-weight-bold">Price : {{airline.price}} Tk</h5>
@@ -20,7 +20,6 @@
                 </select><br>
                 <button class="btn btn-success w-50" type="submit">Book Now</button>
             </form>
-            <!-- <a href="{% url 'bookflight'%}" class="btn btn-success w-50">Book Now</a> -->
         </div>
 </div>
 {% endif %}

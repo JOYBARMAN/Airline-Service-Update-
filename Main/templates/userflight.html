@@ -24,7 +24,7 @@
     <tbody>
       <tr>
         <th scope="row">{{flight.user.username}}</th>
-        <td>{{flight.airlines.name}}</td>
+        <td><a href="{% url 'airline_detail' flight.airlines.pk %}">{{flight.airlines.name}}</a></td>
         <td>{{flight.airlines.source}}</td>
         <td>{{flight.airlines.destination}}</td>
         <td>{{flight.airlines.price}}</td>
