@@ -2,7 +2,7 @@ from django.shortcuts import (get_object_or_404,render,HttpResponseRedirect)
 from Main.models import Airlines,Flight_Book
 from django.contrib import messages
 from django.http import HttpResponse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from .forms import AirlinesForm,FlightBookForm
 from django.urls import reverse_lazy
 
@@ -22,7 +22,14 @@ class CreateAirlinesView(CreateView):
 class AirlinesView(ListView):
     model = Airlines
     template_name = 'airlinelist.html'
-    ordering = ['date']
+    # ordering = ['-id']
+
+
+class EditAirlinesView(UpdateView):
+    model = Airlines
+    form_class = AirlinesForm
+    template_name = 'edit-airlines.html'
+    success_url = reverse_lazy("airlinesList")
 
 
 def searchAirlines(request):
@@ -30,7 +37,9 @@ def searchAirlines(request):
         source = request.POST['ffrom']
         destination =request.POST['fto']
         flight_type =request.POST['fflight']
-        airline = Airlines.objects.filter(flight_type__contains=flight_type,source__contains=source,destination__contains=destination)
+        flying_date = request.POST['date']
+        airline = Airlines.objects.filter(flying_date__contains=flying_date,flight_type__contains=flight_type,source__contains=source,destination__contains=destination)
+        # airline = Airlines.objects.filter(flying_date__contains=flying_date)
 
         return render(request,'searchAirlines.html',{'airline':airline})
     else:
@@ -41,6 +50,14 @@ def airline_detail(request,pk):
     airline = Airlines.objects.get(id=pk)
     airline_list=Airlines.objects.all()
     return render(request, "airlinesDetail.html", {'airline':airline,'airline_list':airline_list})
+
+def delete_airline_view (request,id):
+    context ={}
+    obj = get_object_or_404(Airlines, id = id)
+    if request.method =="POST":
+        obj.delete()
+        return HttpResponseRedirect("/airlineslist")
+    return render(request, "deleteAirline.html", context)
 
 
 class UserBookFlight(ListView):
@@ -72,5 +89,7 @@ def book_flight(request):
         flightbook.save()
         messages.success(request,'Your Flight Is Successfully Booked')
         return HttpResponseRedirect("/userflight")
+
+
 
 

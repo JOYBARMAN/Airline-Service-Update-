@@ -22,7 +22,7 @@ admin.site.site_header = "Airline service admin "
 admin.site.site_title = "Airline service Admin Portal"
 admin.site.index_title = "Welcome to Airline service Portal"
 #from Main import views as mg
-from Main.views import index,home,CreateAirlinesView,AirlinesView,searchAirlines,airline_detail,UserBookFlight,flight_cancel_view,book_flight
+from Main.views import index,home,CreateAirlinesView,AirlinesView,searchAirlines,airline_detail,UserBookFlight,flight_cancel_view,book_flight,EditAirlinesView,delete_airline_view
 from Authentication.views import signup,login,logout
 from Find_safe.views import safe,result
 from Price_prediction.views import price,result1
@@ -44,6 +44,8 @@ urlpatterns = [
     path('airlines/',CreateAirlinesView.as_view(),name="airlines"),
     path('airlineslist',AirlinesView.as_view(),name="airlinesList"),
     path('airlinedetail/<int:pk>',airline_detail,name="airline_detail"),
+    path('airline/<id>/delete', delete_airline_view, name="delete-airline"),
+    path('airline/<int:pk>/edit',EditAirlinesView.as_view(),name="airline_edit"),
     path('searchairline',searchAirlines,name="searchairline"),
     path('userflight',UserBookFlight.as_view(),name="userflight"),
     path('userflight/<id>/cancel', flight_cancel_view, name="cancel-flight"),

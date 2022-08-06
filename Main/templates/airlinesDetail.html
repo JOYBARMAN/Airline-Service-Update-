@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<h1 class="text-center my-4">Airline Deatil</h1>
 {% if airline %}
+<h1 class="text-center my-4">Airline Deatil</h1>
 <div class="container" style="height: auto ;">
+    {% if user.is_superuser %}
+    <div class="d-flex justify-content-end my-2">
+        <a class="btn btn-sm btn-primary mx-3" href="{% url 'airline_edit' airline.pk %}">Edit Airline</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'delete-airline' airline.pk %}">Delete Airline</a>
+    </div>
+    {% endif %}
     <div>
         <img src="{{airline.image.url}}" alt="" height="100%" width="100%">
     </div>
@@ -18,7 +24,11 @@
                 <select name="airlines" id="" hidden>
                     <option value="{{airline.id}}">{{airline.name}}</option>
                 </select><br>
+                {% if airline.available == False %}
+                <p class="btn btn-danger w-50 disabled">Not Available Seats</p>
+                {% else %}
                 <button class="btn btn-success w-50" type="submit">Book Now</button>
+                {% endif %}
             </form>
         </div>
 </div>

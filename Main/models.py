@@ -38,8 +38,10 @@ class Airlines(models.Model):
     flight_type = models.CharField(max_length=255,choices=Flight_Type)
     source = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
+    flying_date =models.CharField(max_length=50,default="08/01/2022")
+    total_seats =models.PositiveIntegerField(default=100)
     description=models.TextField()
-    date = models.DateField(auto_now_add=True)
+    available =models.BooleanField(default=True)
 
     def __str__(self):
         return self.name + "|" + str(self.flight_type)
